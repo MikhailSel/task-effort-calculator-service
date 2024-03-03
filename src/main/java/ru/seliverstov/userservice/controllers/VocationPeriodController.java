@@ -24,7 +24,6 @@ public class VocationPeriodController {
     public AddVocationPeriodRs getVocationPeriod(@RequestParam Long id) {
         AddVocationPeriodRs addVocationPeriodRs = vocationPeriodService.getVocationPeriod(id);
         return addVocationPeriodRs;
-
     }
 }
 
