@@ -1,6 +1,7 @@
-package ru.seliverstov.userservice;
+package ru.seliverstov.userservice.controllers;
 
 import org.springframework.web.bind.annotation.*;
+import ru.seliverstov.userservice.services.UserService;
 import ru.seliverstov.userservice.dto.UserRegistrationRq;
 import ru.seliverstov.userservice.dto.UserRs;
 import ru.seliverstov.userservice.dto.UserUpdateRq;
