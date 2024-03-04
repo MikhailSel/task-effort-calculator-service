@@ -3,22 +3,13 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-<<<<<<< HEAD
-	<parent>
-		<groupId>org.springframework.boot</groupId>
-		<artifactId>spring-boot-starter-parent</artifactId>
-		<version>3.1.5</version>
-		<relativePath/>
-	</parent>
-=======
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
         <version>3.1.5</version>
         <relativePath/>
     </parent>
->>>>>>> 0fc6ff9fb8ae81a60945d054550673048d7b27bd
-
+    
     <groupId>ru.seliverstov</groupId>
     <artifactId>user-service</artifactId>
     <version>0.0.1-SNAPSHOT</version>
