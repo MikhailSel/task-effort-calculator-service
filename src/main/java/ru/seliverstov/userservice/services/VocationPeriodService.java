@@ -14,6 +14,7 @@ import java.util.List;
 @Service
 public class VocationPeriodService {
 
+
     private final List<VocationPeriod> VocationPeriods = new ArrayList<>();
 
     public AddVocationPeriodRs postAddVocationPeriod(AddVocationPeriodRq addVocationPeriodRq) {
