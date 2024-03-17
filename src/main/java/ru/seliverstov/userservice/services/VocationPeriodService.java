@@ -10,13 +10,26 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
-
 @Service
 public class VocationPeriodService {
 
+    private final List<VocationPeriod> vocationPeriods = new ArrayList<>();
 
-    private final List<VocationPeriod> VocationPeriods = new ArrayList<>();
-
+    /**
+     * Adds a new vocation period.
+     *
+     * @param addVocationPeriodRq The request object containing the details of the vocation period to be added.
+     *                            This request object should have the following properties:
+     *                            - userId: The ID of the user associated with the vocation period (type: Long).
+     *                            - dateFrom: The starting date of the vocation period in the format "dd.MM.yyyy" (type: String).
+     *                            - dateTo: The ending date of the vocation period in the format "dd.MM.yyyy" (type: String).
+     * @return The response object containing the details of the added vocation period.
+     * This response object will have the following properties:
+     * - id: The ID of the vocation period (type: Long).
+     * - userId: The ID of the user associated with the vocation period (type: Long).
+     * - dateFrom: The starting date of the vocation period in the format "dd.MM.yyyy" (type: String).
+     * - dateTo: The ending date of the vocation period in the format "dd.MM.yyyy" (type: String).
+     */
     public AddVocationPeriodRs postAddVocationPeriod(AddVocationPeriodRq addVocationPeriodRq) {
 
         String dateFrom = addVocationPeriodRq.getDateFrom();
@@ -27,7 +40,7 @@ public class VocationPeriodService {
         LocalDate dateToLocalDate = LocalDate.parse(dateFrom, formatter);
 
         VocationPeriod vocationPeriod = new VocationPeriod(addVocationPeriodRq.getUserId(), dateFromLocalDate, dateToLocalDate);
-        VocationPeriods.add(vocationPeriod);
+        vocationPeriods.add(vocationPeriod);
 
         AddVocationPeriodRs addVocationPeriodRs = new AddVocationPeriodRs(vocationPeriod.getId(),
             vocationPeriod.getUserId(),
@@ -37,7 +50,7 @@ public class VocationPeriodService {
     }
 
     public AddVocationPeriodRs getVocationPeriod(Long id) {
-        for (VocationPeriod vocationPeriod : VocationPeriods) {
+        for (VocationPeriod vocationPeriod : vocationPeriods) {
             if (vocationPeriod.getId().equals(id)) {
                 AddVocationPeriodRs addVocationPeriodRs = new AddVocationPeriodRs(
                     vocationPeriod.getId(),
