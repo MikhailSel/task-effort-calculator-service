@@ -5,7 +5,7 @@ public class UserUpdateRq {
     private Long id;
     private String fio;
 
-    public UserUpdateRq(Long id, String fio) {
+    public UserUpdateRq(final Long id, final String fio) {
         this.id = id;
         this.fio = fio;
     }
@@ -14,7 +14,7 @@ public class UserUpdateRq {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(final Long id) {
         this.id = id;
     }
 
@@ -22,7 +22,7 @@ public class UserUpdateRq {
         return fio;
     }
 
-    public void setFio(String fio) {
+    public void setFio(final String fio) {
         this.fio = fio;
     }
 }

@@ -32,17 +32,21 @@ public class VocationPeriodService {
      */
     public AddVocationPeriodRs postAddVocationPeriod(AddVocationPeriodRq addVocationPeriodRq) {
 
-        String dateFrom = addVocationPeriodRq.getDateFrom();
-        String dateTo = addVocationPeriodRq.getDateTo();
+        final String dateFrom = addVocationPeriodRq.getDateFrom();
+        final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd.MM.yyyy");
+        final LocalDate dateFromLocalDate = LocalDate.parse(dateFrom, formatter);
+        final LocalDate dateToLocalDate = LocalDate.parse(dateFrom, formatter);
 
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd.MM.yyyy");
-        LocalDate dateFromLocalDate = LocalDate.parse(dateFrom, formatter);
-        LocalDate dateToLocalDate = LocalDate.parse(dateFrom, formatter);
+        final VocationPeriod vocationPeriod = new VocationPeriod(addVocationPeriodRq.getUserId(),
+            dateFromLocalDate,
+            dateToLocalDate);
+        vocationPeriods.add(vocationPeriod);
 
         VocationPeriod vocationPeriod = new VocationPeriod(addVocationPeriodRq.getUserId(), dateFromLocalDate, dateToLocalDate);
         vocationPeriods.add(vocationPeriod);
 
         AddVocationPeriodRs addVocationPeriodRs = new AddVocationPeriodRs(vocationPeriod.getId(),
+        final AddVocationPeriodRs addVocationPeriodRs = new AddVocationPeriodRs(vocationPeriod.getId(),
             vocationPeriod.getUserId(),
             vocationPeriod.getDateFrom().toString(),
             vocationPeriod.getDateTo().toString());
@@ -52,8 +56,7 @@ public class VocationPeriodService {
     public AddVocationPeriodRs getVocationPeriod(Long id) {
         for (VocationPeriod vocationPeriod : vocationPeriods) {
             if (vocationPeriod.getId().equals(id)) {
-                AddVocationPeriodRs addVocationPeriodRs = new AddVocationPeriodRs(
-                    vocationPeriod.getId(),
+                final AddVocationPeriodRs addVocationPeriodRs = new AddVocationPeriodRs(vocationPeriod.getId(),
                     vocationPeriod.getUserId(),
                     vocationPeriod.getDateFrom().toString(),
                     vocationPeriod.getDateTo().toString());

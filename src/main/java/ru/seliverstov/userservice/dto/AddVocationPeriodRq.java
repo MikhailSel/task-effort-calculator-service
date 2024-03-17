@@ -1,7 +1,5 @@
 package ru.seliverstov.userservice.dto;
 
-import java.time.LocalDate;
-
 public class AddVocationPeriodRq {
 
     public Long userId;
@@ -10,7 +8,7 @@ public class AddVocationPeriodRq {
     //ожидаем дату в формате dd.mm.yyyy
     private String dateTo;
 
-    public AddVocationPeriodRq(Long userId, String dateFrom, String dateTo) {
+    public AddVocationPeriodRq(final Long userId, final String dateFrom, final String dateTo) {
         this.userId = userId;
         this.dateFrom = dateFrom;
         this.dateTo = dateTo;
@@ -24,7 +22,7 @@ public class AddVocationPeriodRq {
         return userId;
     }
 
-    public void setUserId(Long userId) {
+    public void setUserId(final Long userId) {
         this.userId = userId;
     }
 
@@ -32,7 +30,7 @@ public class AddVocationPeriodRq {
         return dateFrom;
     }
 
-    public void setDateFrom(String dateFrom) {
+    public void setDateFrom(final String dateFrom) {
         this.dateFrom = dateFrom;
     }
 
@@ -40,7 +38,7 @@ public class AddVocationPeriodRq {
         return dateTo;
     }
 
-    public void setDateTo(String dateTo) {
+    public void setDateTo(final String dateTo) {
         this.dateTo = dateTo;
     }
 }

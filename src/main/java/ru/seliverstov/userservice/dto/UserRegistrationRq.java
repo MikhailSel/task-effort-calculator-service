@@ -4,7 +4,7 @@ public class UserRegistrationRq {
     private String fullName;
     private String role;
 
-    public UserRegistrationRq(String fullName, String role) {
+    public UserRegistrationRq(final String fullName, final String role) {
         this.fullName = fullName;
         this.role = role;
     }
@@ -16,7 +16,7 @@ public class UserRegistrationRq {
         return fullName;
     }
 
-    public void setFullName(String fullName) {
+    public void setFullName(final String fullName) {
         this.fullName = fullName;
     }
 
@@ -24,7 +24,7 @@ public class UserRegistrationRq {
         return role;
     }
 
-    public void setRole(String role) {
+    public void setRole(final String role) {
         this.role = role;
     }
 }
