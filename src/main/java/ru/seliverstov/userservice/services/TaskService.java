@@ -32,9 +32,6 @@ public class TaskService {
     }
 
     public void deleteTask(final Long id) {
-        if (taskRepository.findById(id).isEmpty()) {
-            throw new ServiceException(ErrorCode.ERR_CODE_001, id);
-        }
         taskRepository.deleteById(id);
     }
 
