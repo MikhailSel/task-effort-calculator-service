@@ -18,6 +18,7 @@ services:
     restart: unless-stopped
 
   pgadmin:
+
     container_name: pgadmin_container
     image: dpage/pgadmin4
     environment:
@@ -26,6 +27,8 @@ services:
       PGADMIN_CONFIG_SERVER_MODE: 'False'
     volumes:
       - pgadmin:/var/lib/pgadmin
+    depends_on:
+      - postgres
     ports:
       - "80:80"
     networks:
