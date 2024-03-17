@@ -13,7 +13,7 @@ public class VocationPeriod {
 
     private LocalDate dateTo;
 
-    public VocationPeriod(Long userId, LocalDate dateFrom, LocalDate dateTo) {
+    public VocationPeriod(final Long userId, final LocalDate dateFrom, final LocalDate dateTo) {
         this.id = new Random().nextLong(1000);
         this.userId = userId;
         this.dateFrom = dateFrom;
@@ -24,7 +24,7 @@ public class VocationPeriod {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(final Long id) {
         this.id = id;
     }
 
@@ -32,7 +32,7 @@ public class VocationPeriod {
         return userId;
     }
 
-    public void setUserId(Long userId) {
+    public void setUserId(final Long userId) {
         this.userId = userId;
     }
 
@@ -40,7 +40,7 @@ public class VocationPeriod {
         return dateFrom;
     }
 
-    public void setDateFrom(LocalDate dateFrom) {
+    public void setDateFrom(final LocalDate dateFrom) {
         this.dateFrom = dateFrom;
     }
 
@@ -48,7 +48,7 @@ public class VocationPeriod {
         return dateTo;
     }
 
-    public void setDateTo(LocalDate dateTo) {
+    public void setDateTo(final LocalDate dateTo) {
         this.dateTo = dateTo;
     }
 }

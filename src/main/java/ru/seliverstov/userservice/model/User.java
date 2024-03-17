@@ -7,7 +7,7 @@ public class User {
     private String fio;
     private String role;
 
-    public User(String fio, String role) {
+    public User(final String fio, final String role) {
         this.id = new Random().nextLong(1000);
         this.fio = fio;
         this.role = role;
@@ -20,7 +20,7 @@ public class User {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(final Long id) {
         this.id = id;
     }
 
@@ -28,7 +28,7 @@ public class User {
         return fio;
     }
 
-    public void setFio(String fio) {
+    public void setFio(final String fio) {
         this.fio = fio;
     }
 
@@ -36,7 +36,7 @@ public class User {
         return role;
     }
 
-    public void setRole(String role) {
+    public void setRole(final String role) {
         this.role = role;
     }
 }

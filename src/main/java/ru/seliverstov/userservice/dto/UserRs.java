@@ -5,7 +5,7 @@ public class UserRs {
     private String fio;
     private String role;
 
-    public UserRs(Long id, String fio, String role) {
+    public UserRs(final Long id, final String fio, final String role) {
         this.id = id;
         this.fio = fio;
         this.role = role;
@@ -18,7 +18,7 @@ public class UserRs {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(final Long id) {
         this.id = id;
     }
 
@@ -26,7 +26,7 @@ public class UserRs {
         return fio;
     }
 
-    public void setFio(String fio) {
+    public void setFio(final String fio) {
         this.fio = fio;
     }
 
@@ -34,7 +34,7 @@ public class UserRs {
         return role;
     }
 
-    public void setRole(String role) {
+    public void setRole(final String role) {
         this.role = role;
     }
 }
