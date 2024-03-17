@@ -42,10 +42,6 @@ public class VocationPeriodService {
             dateToLocalDate);
         vocationPeriods.add(vocationPeriod);
 
-        VocationPeriod vocationPeriod = new VocationPeriod(addVocationPeriodRq.getUserId(), dateFromLocalDate, dateToLocalDate);
-        vocationPeriods.add(vocationPeriod);
-
-        AddVocationPeriodRs addVocationPeriodRs = new AddVocationPeriodRs(vocationPeriod.getId(),
         final AddVocationPeriodRs addVocationPeriodRs = new AddVocationPeriodRs(vocationPeriod.getId(),
             vocationPeriod.getUserId(),
             vocationPeriod.getDateFrom().toString(),
