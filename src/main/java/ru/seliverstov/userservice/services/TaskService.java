@@ -3,8 +3,12 @@ package ru.seliverstov.userservice.services;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import ru.seliverstov.userservice.dto.TaskRegistrationRq;
+import ru.seliverstov.userservice.dto.TaskRq;
+import ru.seliverstov.userservice.dto.TaskRs;
 import ru.seliverstov.userservice.exception.ErrorCode;
 import ru.seliverstov.userservice.exception.ServiceException;
+import ru.seliverstov.userservice.mapper.TaskMapper;
 import ru.seliverstov.userservice.model.Task;
 import ru.seliverstov.userservice.repository.TaskRepository;
 
@@ -13,22 +17,28 @@ import java.util.List;
 @Service
 @RequiredArgsConstructor
 public class TaskService {
-    private TaskRepository taskRepository;
+    private final TaskRepository taskRepository;
+    private final TaskMapper taskMapper;
 
-    public List<Task> findAll() {
+    public List<TaskRs> findAll() {
         return taskRepository.findAll()
             .stream()
+            .map(taskMapper::toTaskRs)
             .toList();
     }
 
-    public Task getTaskById(final Long id) {
+    public TaskRs getTaskById(final Long id) {
         return taskRepository.findById(id)
+            .map(taskMapper::toTaskRs)
             .orElseThrow(() -> new ServiceException(ErrorCode.ERR_CODE_001, id));
     }
 
-    public Task postTask(final Task task) {
+    public TaskRs postTask(final TaskRegistrationRq taskRegistrationRq) {
+        Task task = Task.builder()
+            .name(taskRegistrationRq.getTaskName())
+            .build();
         taskRepository.save(task);
-        return task;
+        return taskMapper.toTaskRs(task);
     }
 
     public void deleteTask(final Long id) {
@@ -36,10 +46,10 @@ public class TaskService {
     }
 
     @Transactional
-    public Task putTask(final Task task) {
-        Task taskToChange = taskRepository.findById(task.getId())
-            .orElseThrow(() -> new ServiceException(ErrorCode.ERR_CODE_001, task.getId()));
-        taskToChange.setName(task.getName());
-        return taskToChange;
+    public TaskRs putTask(final TaskRq taskRq) {
+        Task taskToChange = taskRepository.findById(taskRq.getId())
+            .orElseThrow(() -> new ServiceException(ErrorCode.ERR_CODE_001, taskRq.getId()));
+        taskToChange.setName(taskRq.getName());
+        return taskMapper.toTaskRs(taskToChange);
     }
 }
