@@ -1,42 +1,33 @@
 package ru.seliverstov.userservice.model;
 
-import java.util.Random;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
+
+@Entity
+@Table(name = "users")
 public class User {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
+    @Column(name = "fio", unique = true, nullable = false, length = 100)
     private String fio;
+
+    @Column(name = "role", nullable = false, length = 100)
     private String role;
-
-    public User(final String fio, final String role) {
-        this.id = new Random().nextLong(1000);
-        this.fio = fio;
-        this.role = role;
-    }
-
-    public User() {
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(final Long id) {
-        this.id = id;
-    }
-
-    public String getFio() {
-        return fio;
-    }
-
-    public void setFio(final String fio) {
-        this.fio = fio;
-    }
-
-    public String getRole() {
-        return role;
-    }
-
-    public void setRole(final String role) {
-        this.role = role;
-    }
 }
