@@ -1,74 +1,70 @@
 package ru.seliverstov.userservice.services;
 
+import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 import ru.seliverstov.userservice.dto.AddVocationPeriodRq;
 import ru.seliverstov.userservice.dto.AddVocationPeriodRs;
 import ru.seliverstov.userservice.model.VocationPeriod;
+import ru.seliverstov.userservice.repository.VocationPeriodRepository;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.Optional;
 
 @Service
+@AllArgsConstructor
 public class VocationPeriodService {
 
-    private final List<VocationPeriod> vocationPeriods = new ArrayList<>();
+    private final VocationPeriodRepository vocationPeriodRepository;
 
-    /**
-     * Adds a new vocation period.
-     *
-     * @param addVocationPeriodRq The request object containing the details of the vocation period to be added.
-     *                            This request object should have the following properties:
-     *                            - userId: The ID of the user associated with the vocation period (type: Long).
-     *                            - dateFrom: The starting date of the vocation period in the format "dd.MM.yyyy" (type: String).
-     *                            - dateTo: The ending date of the vocation period in the format "dd.MM.yyyy" (type: String).
-     * @return The response object containing the details of the added vocation period.
-     * This response object will have the following properties:
-     * - id: The ID of the vocation period (type: Long).
-     * - userId: The ID of the user associated with the vocation period (type: Long).
-     * - dateFrom: The starting date of the vocation period in the format "dd.MM.yyyy" (type: String).
-     * - dateTo: The ending date of the vocation period in the format "dd.MM.yyyy" (type: String).
-     */
-    public AddVocationPeriodRs postAddVocationPeriod(AddVocationPeriodRq addVocationPeriodRq) {
-
+    public AddVocationPeriodRs postAddVocationPeriod(final AddVocationPeriodRq addVocationPeriodRq) {
         final String dateFrom = addVocationPeriodRq.getDateFrom();
         final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd.MM.yyyy");
+
         final LocalDate dateFromLocalDate = LocalDate.parse(dateFrom, formatter);
         final LocalDate dateToLocalDate = LocalDate.parse(dateFrom, formatter);
 
-        final VocationPeriod vocationPeriod = new VocationPeriod(addVocationPeriodRq.getUserId(),
-            dateFromLocalDate,
-            dateToLocalDate);
-        vocationPeriods.add(vocationPeriod);
+        final VocationPeriod vocationPeriod = VocationPeriod.builder()
+            .userId(addVocationPeriodRq.getUserId())
+            .dateFrom(dateFromLocalDate)
+            .dateTo(dateToLocalDate)
+            .build();
 
-//        final AddVocationPeriodRs addVocationPeriodRs = new AddVocationPeriodRs(vocationPeriod.getId(),
-//            vocationPeriod.getUserId(),
-//            vocationPeriod.getDateFrom().toString(),
-//            vocationPeriod.getDateTo().toString());
-//        return addVocationPeriodRs;
+        vocationPeriodRepository.save(vocationPeriod);
+
         return AddVocationPeriodRs.builder()
+            .id(vocationPeriod.getId())
             .userId(vocationPeriod.getUserId())
             .dateFrom(vocationPeriod.getDateFrom().toString())
             .dateTo(vocationPeriod.getDateTo().toString())
             .build();
     }
 
-    public AddVocationPeriodRs getVocationPeriod(Long id) {
-        for (VocationPeriod vocationPeriod : vocationPeriods) {
-            if (vocationPeriod.getId().equals(id)) {
-//                final AddVocationPeriodRs addVocationPeriodRs = new AddVocationPeriodRs(vocationPeriod.getId(),
-//                    vocationPeriod.getUserId(),
-//                    vocationPeriod.getDateFrom().toString(),
-//                    vocationPeriod.getDateTo().toString());
-//                return addVocationPeriodRs;
-                return AddVocationPeriodRs.builder()
-                    .userId(vocationPeriod.getUserId())
-                    .dateFrom(vocationPeriod.getDateFrom().toString())
-                    .dateTo(vocationPeriod.getDateTo().toString())
-                    .build();
-            }
+    public AddVocationPeriodRs getVocationPeriod(final Long id) {
+        Optional<VocationPeriod> vocationPeriodOptional = vocationPeriodRepository.findById(id);
+
+        if (vocationPeriodOptional.isPresent()) {
+            VocationPeriod vocationPeriod = vocationPeriodOptional.get();
+
+            return AddVocationPeriodRs.builder()
+                .id(vocationPeriod.getId())
+                .userId(vocationPeriod.getUserId())
+                .dateFrom(vocationPeriod.getDateFrom().toString())
+                .dateTo(vocationPeriod.getDateTo().toString())
+                .build();
         }
-        return null;
+
+        throw new IllegalStateException("Cant find vocation period with id: " + id);
+
+//        for (VocationPeriod vocationPeriod : vocationPeriods) {
+//            if (vocationPeriod.getId().equals(id)) {
+//                return AddVocationPeriodRs.builder()
+//                    .userId(vocationPeriod.getUserId())
+//                    .dateFrom(vocationPeriod.getDateFrom().toString())
+//                    .dateTo(vocationPeriod.getDateTo().toString())
+//                    .build();
+//            }
+//        }
+//        return null;
     }
 }
