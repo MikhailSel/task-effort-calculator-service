@@ -1,5 +1,6 @@
 package ru.seliverstov.userservice.controllers;
 
+import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -13,12 +14,13 @@ import ru.seliverstov.userservice.dto.UserUpdateRq;
 import ru.seliverstov.userservice.services.UserService;
 
 @RestController
+@RequiredArgsConstructor
 public class UserController {
     private final UserService userService;
 
-    public UserController(final UserService userService) {
-        this.userService = userService;
-    }
+//    public UserController(final UserService userService) {
+//        this.userService = userService;
+//    }
 
     @PostMapping("api/v1/users")
     public final UserRs postUser(@RequestBody final UserRegistrationRq userRegistrationRq) {

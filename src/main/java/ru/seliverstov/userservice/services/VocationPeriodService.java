@@ -42,21 +42,31 @@ public class VocationPeriodService {
             dateToLocalDate);
         vocationPeriods.add(vocationPeriod);
 
-        final AddVocationPeriodRs addVocationPeriodRs = new AddVocationPeriodRs(vocationPeriod.getId(),
-            vocationPeriod.getUserId(),
-            vocationPeriod.getDateFrom().toString(),
-            vocationPeriod.getDateTo().toString());
-        return addVocationPeriodRs;
+//        final AddVocationPeriodRs addVocationPeriodRs = new AddVocationPeriodRs(vocationPeriod.getId(),
+//            vocationPeriod.getUserId(),
+//            vocationPeriod.getDateFrom().toString(),
+//            vocationPeriod.getDateTo().toString());
+//        return addVocationPeriodRs;
+        return AddVocationPeriodRs.builder()
+            .userId(vocationPeriod.getUserId())
+            .dateFrom(vocationPeriod.getDateFrom().toString())
+            .dateTo(vocationPeriod.getDateTo().toString())
+            .build();
     }
 
     public AddVocationPeriodRs getVocationPeriod(Long id) {
         for (VocationPeriod vocationPeriod : vocationPeriods) {
             if (vocationPeriod.getId().equals(id)) {
-                final AddVocationPeriodRs addVocationPeriodRs = new AddVocationPeriodRs(vocationPeriod.getId(),
-                    vocationPeriod.getUserId(),
-                    vocationPeriod.getDateFrom().toString(),
-                    vocationPeriod.getDateTo().toString());
-                return addVocationPeriodRs;
+//                final AddVocationPeriodRs addVocationPeriodRs = new AddVocationPeriodRs(vocationPeriod.getId(),
+//                    vocationPeriod.getUserId(),
+//                    vocationPeriod.getDateFrom().toString(),
+//                    vocationPeriod.getDateTo().toString());
+//                return addVocationPeriodRs;
+                return AddVocationPeriodRs.builder()
+                    .userId(vocationPeriod.getUserId())
+                    .dateFrom(vocationPeriod.getDateFrom().toString())
+                    .dateTo(vocationPeriod.getDateTo().toString())
+                    .build();
             }
         }
         return null;
