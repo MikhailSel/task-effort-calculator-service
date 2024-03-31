@@ -18,7 +18,7 @@ public class VocationPeriodController {
         this.vocationPeriodService = vocationPeriodService;
     }
 
-    @PostMapping("api/v1/vocation-periods")
+    @PostMapping(value = "api/v1/vocation-periods", produces = "application/xml", consumes = "application/json")
     public AddVocationPeriodRs postAddVocationPeriodRs(@RequestBody final AddVocationPeriodRq addVocationPeriodRq) {
         final AddVocationPeriodRs addVocationPeriodRs = vocationPeriodService.postAddVocationPeriod(addVocationPeriodRq);
         return addVocationPeriodRs;
