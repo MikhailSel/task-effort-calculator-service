@@ -49,11 +49,12 @@ public class TaskEstimationService {
             .orElseThrow(() -> new ServiceException(ErrorCode.ERR_CODE_001, request.getTaskId()));
         User user = userRepository.findById(request.getUserId())
             .orElseThrow(() -> new ServiceException(ErrorCode.ERR_CODE_002, request.getUserId()));
-        TaskUserEstimation taskUserEstimation = TaskUserEstimation.builder()
-            .task(task)
-            .user(user)
-            .daysPerPerson(request.getDaysPerTask())
-            .build();
+//        TaskUserEstimation taskUserEstimation = TaskUserEstimation.builder()
+//            .task(task)
+//            .user(user)
+//            .daysPerPerson(request.getDaysPerTask())
+//            .build();
+        TaskUserEstimation taskUserEstimation = new TaskUserEstimation(task, user, request.getDaysPerTask());
         taskEstimationRepository.save(taskUserEstimation);
         return taskEstimationMapper.toTaskEstimationRs(taskUserEstimation);
     }

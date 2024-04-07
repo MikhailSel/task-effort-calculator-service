@@ -39,6 +39,9 @@ public class User {
     @Column(name = "role", nullable = false, length = 100)
     private String role;
 
-    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "user",
+               cascade = CascadeType.ALL,
+               orphanRemoval = true,
+               fetch = FetchType.EAGER)
     private List<TaskUserEstimation> listTaskUserEstimation = new ArrayList<>();
 }
