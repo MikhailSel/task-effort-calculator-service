@@ -7,7 +7,9 @@ import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
 import jakarta.persistence.OneToMany;
+import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -37,8 +39,9 @@ public class User {
     @Column(name = "fio", unique = true, nullable = false, length = 100)
     private String fio;
 
-    @Column(name = "role", nullable = false, length = 100)
-    private String role;
+    @OneToOne
+    @JoinColumn(name = "id_role", referencedColumnName = "id")
+    private Role role;
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
     @Builder.Default
