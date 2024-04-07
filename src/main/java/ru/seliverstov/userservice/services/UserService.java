@@ -41,7 +41,7 @@ private final UserMapper userMapper;
     public UserRs postUser(final  UserRegistrationRq request) {
         final User user = User.builder()
             .fio(request.getFullName())
-            .role(request.getRole())
+//            .role(request.getRole())
             .build();
         userRepository.save(user);
         return userMapper.toUserRs(user);
