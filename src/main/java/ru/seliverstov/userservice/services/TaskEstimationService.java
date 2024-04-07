@@ -11,7 +11,7 @@ import ru.seliverstov.userservice.exception.ServiceException;
 import ru.seliverstov.userservice.mapper.TaskEstimationMapper;
 import ru.seliverstov.userservice.model.Task;
 import ru.seliverstov.userservice.model.TaskUserEstimation;
-import ru.seliverstov.userservice.model.TaskUserKey;
+import ru.seliverstov.userservice.model.TaskUserEstimationId;
 import ru.seliverstov.userservice.model.User;
 import ru.seliverstov.userservice.repository.TaskEstimationRepository;
 import ru.seliverstov.userservice.repository.TaskRepository;
@@ -35,45 +35,50 @@ public class TaskEstimationService {
     }
 
     public TaskEstimationRs getTaskEstimationById(final Long taskId, final Long userId) {
-        TaskUserKey taskUserKey = TaskUserKey.builder()
+        TaskUserEstimationId taskUserEstimationId = TaskUserEstimationId.builder()
             .taskId(taskId)
             .userId(userId)
             .build();
-        return taskEstimationRepository.findById(taskUserKey)
+        return taskEstimationRepository.findById(taskUserEstimationId)
             .map(taskEstimationMapper::toTaskEstimationRs)
             .orElseThrow(() -> new ServiceException(ErrorCode.ERR_CODE_003, taskId, userId));
     }
 
     public TaskEstimationRs postTaskEstimation(final AddTaskEstimationRq request) {
-        Task task = taskRepository.findById(request.getTaskId())
+        final Task task = taskRepository.findById(request.getTaskId())
             .orElseThrow(() -> new ServiceException(ErrorCode.ERR_CODE_001, request.getTaskId()));
-        User user = userRepository.findById(request.getUserId())
+        final User user = userRepository.findById(request.getUserId())
             .orElseThrow(() -> new ServiceException(ErrorCode.ERR_CODE_002, request.getUserId()));
-//        TaskUserEstimation taskUserEstimation = TaskUserEstimation.builder()
-//            .task(task)
-//            .user(user)
-//            .daysPerPerson(request.getDaysPerTask())
-//            .build();
-        TaskUserEstimation taskUserEstimation = new TaskUserEstimation(task, user, request.getDaysPerTask());
+
+        final TaskUserEstimation taskUserEstimation = TaskUserEstimation.builder()
+            .id(TaskUserEstimationId.builder()
+                .taskId(request.getTaskId())
+                .userId(request.getUserId())
+                .build())
+            .task(task)
+            .user(user)
+            .daysPerPerson(request.getDaysPerTask())
+            .build();
+
         taskEstimationRepository.save(taskUserEstimation);
         return taskEstimationMapper.toTaskEstimationRs(taskUserEstimation);
     }
 
     public void deleteTaskEstimation(final Long taskId, final Long userId) {
-        TaskUserKey taskUserKey = TaskUserKey.builder()
+        TaskUserEstimationId taskUserEstimationId = TaskUserEstimationId.builder()
             .taskId(taskId)
             .userId(userId)
             .build();
-        taskEstimationRepository.deleteById(taskUserKey);
+        taskEstimationRepository.deleteById(taskUserEstimationId);
     }
 
     @Transactional
-    public TaskEstimationRs putTaskEstimation(final UpdateTaskEstimationRq request){
-        TaskUserKey taskUserKey = TaskUserKey.builder()
+    public TaskEstimationRs putTaskEstimation(final UpdateTaskEstimationRq request) {
+        TaskUserEstimationId taskUserEstimationId = TaskUserEstimationId.builder()
             .taskId(request.getTaskId())
             .userId(request.getUserId())
             .build();
-        TaskUserEstimation taskUserEstimation = taskEstimationRepository.findById(taskUserKey)
+        TaskUserEstimation taskUserEstimation = taskEstimationRepository.findById(taskUserEstimationId)
             .orElseThrow(() -> new ServiceException(ErrorCode.ERR_CODE_003, request.getTaskId(), request.getUserId()));
         taskUserEstimation.setDaysPerPerson(request.getDaysPerTask());
         return taskEstimationMapper.toTaskEstimationRs(taskUserEstimation);

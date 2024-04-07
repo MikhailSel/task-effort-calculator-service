@@ -8,7 +8,6 @@ import lombok.Setter;
 @Setter
 @Builder
 public class TaskRegistrationRq {
-    private Long taskId;
     private String taskName;
 }
 

@@ -14,6 +14,7 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import lombok.ToString;
 import lombok.experimental.Accessors;
 
 import java.util.ArrayList;
@@ -39,9 +40,8 @@ public class User {
     @Column(name = "role", nullable = false, length = 100)
     private String role;
 
-    @OneToMany(mappedBy = "user",
-               cascade = CascadeType.ALL,
-               orphanRemoval = true,
-               fetch = FetchType.EAGER)
-    private List<TaskUserEstimation> listTaskUserEstimation = new ArrayList<>();
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
+    @Builder.Default
+    @ToString.Exclude
+    private List<TaskUserEstimation> taskUserEstimations = new ArrayList<>();
 }

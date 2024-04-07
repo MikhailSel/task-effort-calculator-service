@@ -19,34 +19,26 @@ import lombok.experimental.Accessors;
 @Setter
 @Accessors(chain = true)
 @NoArgsConstructor
+@AllArgsConstructor
+@Builder
 
 @Entity
-@Table(name = "task_estimation")
+@Table(name = "task_user_estimation")
 public class TaskUserEstimation {
     @EmbeddedId
-    private TaskUserKey id;
+    private TaskUserEstimationId id;
+
     @ManyToOne
     @MapsId("taskId")
-    @JoinColumn(name = "task_id",
-        foreignKey = @ForeignKey(
-            name = "fk_estimation_on_task"
-        )
-    )
+    @JoinColumn(name = "task_id", foreignKey = @ForeignKey(name = "fk_estimation_on_task"))
     private Task task;
+
     @ManyToOne
     @MapsId("userId")
-    @JoinColumn(name = "user_id",
-        foreignKey = @ForeignKey(
-            name = "fk_estimation_on_user"
-        )
-    )
+    @JoinColumn(name = "user_id", foreignKey = @ForeignKey(name = "fk_estimation_on_user"))
     private User user;
+
     @Column(name = "days_per_person")
     private Long daysPerPerson;
 
-    public TaskUserEstimation(Task task, User user, Long daysPerPerson) {
-        this.task = task;
-        this.user = user;
-        this.daysPerPerson = daysPerPerson;
-    }
 }
