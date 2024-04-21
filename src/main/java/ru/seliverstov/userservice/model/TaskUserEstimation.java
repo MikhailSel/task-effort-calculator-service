@@ -3,6 +3,7 @@ package ru.seliverstov.userservice.model;
 import jakarta.persistence.Column;
 import jakarta.persistence.EmbeddedId;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.ForeignKey;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
@@ -28,12 +29,12 @@ public class TaskUserEstimation {
     @EmbeddedId
     private TaskUserEstimationId id;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @MapsId("taskId")
     @JoinColumn(name = "task_id", foreignKey = @ForeignKey(name = "fk_estimation_on_task"))
     private Task task;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @MapsId("userId")
     @JoinColumn(name = "user_id", foreignKey = @ForeignKey(name = "fk_estimation_on_user"))
     private User user;

@@ -34,7 +34,7 @@ public class TaskService {
     }
 
     public TaskRs postTask(final TaskRegistrationRq taskRegistrationRq) {
-        Task task = Task.builder()
+        final Task task = Task.builder()
             .name(taskRegistrationRq.getTaskName())
             .build();
         taskRepository.save(task);
@@ -47,7 +47,7 @@ public class TaskService {
 
     @Transactional
     public TaskRs putTask(final TaskRq taskRq) {
-        Task taskToChange = taskRepository.findById(taskRq.getId())
+        final Task taskToChange = taskRepository.findById(taskRq.getId())
             .orElseThrow(() -> new ServiceException(ErrorCode.ERR_CODE_001, taskRq.getId()));
         taskToChange.setName(taskRq.getName());
         return taskMapper.toTaskRs(taskToChange);

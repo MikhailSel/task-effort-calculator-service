@@ -10,7 +10,7 @@ public class UserMapper {
         return UserRs.builder()
             .id(user.getId())
             .fio(user.getFio())
- //           .role(user.getRole())
+            //           .role(user.getRole())
             .build();
     }
 }

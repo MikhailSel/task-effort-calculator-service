@@ -28,7 +28,7 @@ public class TaskUserEstimationId implements Serializable {
     private Long userId;
 
     @Override
-    public final boolean equals(Object o) {
+    public final boolean equals(final Object o) {
         if (this == o) {
             return true;
         }
