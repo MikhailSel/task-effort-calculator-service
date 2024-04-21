@@ -18,10 +18,6 @@ import ru.seliverstov.userservice.services.UserService;
 public class UserController {
     private final UserService userService;
 
-//    public UserController(final UserService userService) {
-//        this.userService = userService;
-//    }
-
     @PostMapping("api/v1/users")
     public final UserRs postUser(@RequestBody final UserRegistrationRq userRegistrationRq) {
         final UserRs userRs = userService.postUser(userRegistrationRq);

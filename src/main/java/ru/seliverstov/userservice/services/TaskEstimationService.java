@@ -35,7 +35,7 @@ public class TaskEstimationService {
     }
 
     public TaskEstimationRs getTaskEstimationById(final Long taskId, final Long userId) {
-        TaskUserEstimationId taskUserEstimationId = TaskUserEstimationId.builder()
+        final TaskUserEstimationId taskUserEstimationId = TaskUserEstimationId.builder()
             .taskId(taskId)
             .userId(userId)
             .build();
@@ -65,7 +65,7 @@ public class TaskEstimationService {
     }
 
     public void deleteTaskEstimation(final Long taskId, final Long userId) {
-        TaskUserEstimationId taskUserEstimationId = TaskUserEstimationId.builder()
+        final TaskUserEstimationId taskUserEstimationId = TaskUserEstimationId.builder()
             .taskId(taskId)
             .userId(userId)
             .build();
@@ -74,11 +74,11 @@ public class TaskEstimationService {
 
     @Transactional
     public TaskEstimationRs putTaskEstimation(final UpdateTaskEstimationRq request) {
-        TaskUserEstimationId taskUserEstimationId = TaskUserEstimationId.builder()
+        final TaskUserEstimationId taskUserEstimationId = TaskUserEstimationId.builder()
             .taskId(request.getTaskId())
             .userId(request.getUserId())
             .build();
-        TaskUserEstimation taskUserEstimation = taskEstimationRepository.findById(taskUserEstimationId)
+        final TaskUserEstimation taskUserEstimation = taskEstimationRepository.findById(taskUserEstimationId)
             .orElseThrow(() -> new ServiceException(ErrorCode.ERR_CODE_003, request.getTaskId(), request.getUserId()));
         taskUserEstimation.setDaysPerPerson(request.getDaysPerTask());
         return taskEstimationMapper.toTaskEstimationRs(taskUserEstimation);

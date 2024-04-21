@@ -41,10 +41,10 @@ public class VocationPeriodService {
     }
 
     public AddVocationPeriodRs getVocationPeriod(final Long id) {
-        Optional<VocationPeriod> vocationPeriodOptional = vocationPeriodRepository.findById(id);
+        final Optional<VocationPeriod> vocationPeriodOptional = vocationPeriodRepository.findById(id);
 
         if (vocationPeriodOptional.isPresent()) {
-            VocationPeriod vocationPeriod = vocationPeriodOptional.get();
+            final VocationPeriod vocationPeriod = vocationPeriodOptional.get();
 
             return AddVocationPeriodRs.builder()
                 .id(vocationPeriod.getId())
@@ -56,15 +56,15 @@ public class VocationPeriodService {
 
         throw new IllegalStateException("Cant find vocation period with id: " + id);
 
-//        for (VocationPeriod vocationPeriod : vocationPeriods) {
-//            if (vocationPeriod.getId().equals(id)) {
-//                return AddVocationPeriodRs.builder()
-//                    .userId(vocationPeriod.getUserId())
-//                    .dateFrom(vocationPeriod.getDateFrom().toString())
-//                    .dateTo(vocationPeriod.getDateTo().toString())
-//                    .build();
-//            }
-//        }
-//        return null;
+        //        for (VocationPeriod vocationPeriod : vocationPeriods) {
+        //            if (vocationPeriod.getId().equals(id)) {
+        //                return AddVocationPeriodRs.builder()
+        //                    .userId(vocationPeriod.getUserId())
+        //                    .dateFrom(vocationPeriod.getDateFrom().toString())
+        //                    .dateTo(vocationPeriod.getDateTo().toString())
+        //                    .build();
+        //            }
+        //        }
+        //        return null;
     }
 }
