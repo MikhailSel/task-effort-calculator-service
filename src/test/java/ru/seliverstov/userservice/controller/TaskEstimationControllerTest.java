@@ -1,7 +1,6 @@
 package ru.seliverstov.userservice.controller;
 
 import org.junit.jupiter.api.Test;
-import org.springframework.test.web.reactive.server.WebTestClient;
 import ru.seliverstov.userservice.dto.AddTaskEstimationRq;
 import ru.seliverstov.userservice.dto.TaskEstimationRs;
 import ru.seliverstov.userservice.dto.UpdateTaskEstimationRq;
@@ -27,6 +26,7 @@ class TaskEstimationControllerTest extends IntegrationTestBase {
             .fio("user1")
             .build();
         userRepository.save(user);
+
         final TaskUserEstimationId taskUserEstimationId = TaskUserEstimationId.builder()
             .taskId(1L)
             .userId(1L)
@@ -40,15 +40,9 @@ class TaskEstimationControllerTest extends IntegrationTestBase {
         taskEstimationRepository.save(taskUserEstimation);
 
         //WHEN
-        final WebTestClient.ResponseSpec response = webTestClient.get()
-            .uri("api/v1/task-estimations/all")
-            .exchange();
 
         //THEN
-        response
-            .expectStatus()
-            .isOk()
-            .expectBodyList(TaskEstimationRs.class)
+        assertThat(getTaskEstimationRsList())
             .isEqualTo(List.of(TaskEstimationRs.builder()
                 .taskId(1L)
                 .userId(1L)
@@ -80,18 +74,9 @@ class TaskEstimationControllerTest extends IntegrationTestBase {
         taskEstimationRepository.save(taskUserEstimation);
 
         //WHEN
-        final WebTestClient.ResponseSpec response = webTestClient.get()
-            .uri(uriBuilder -> uriBuilder.path("api/v1/task-estimations")
-                .queryParam("taskId", "1")
-                .queryParam("userId", "1")
-                .build())
-            .exchange();
 
         //THEN
-        response
-            .expectStatus()
-            .isOk();
-        response.expectBody(TaskEstimationRs.class)
+        assertThat(getTaskUserEstimationById())
             .isEqualTo(TaskEstimationRs.builder()
                 .taskId(1L)
                 .userId(1L)
@@ -167,26 +152,16 @@ class TaskEstimationControllerTest extends IntegrationTestBase {
             .build();
         taskEstimationRepository.save(taskUserEstimation);
         //WHEN
-        //http://localhost:8085/api/v1/task-estimations?taskId=1&userId=1'
-        final WebTestClient.ResponseSpec response = webTestClient
-            .delete()
-            .uri(uriBuilder -> uriBuilder
-                .path("api/v1/task-estimations")
-                .queryParam("taskId", 1L)
-                .queryParam("userId", 1L)
-                .build())
-            .exchange();
+
         //THEN
-        response
-            .expectStatus()
-            .isOk();
+        deleteTaskEstimation();
 
         assertThat(taskEstimationRepository.findAll())
             .isEmpty();
     }
 
     @Test
-    void putTasUserEstimation() {
+    void putTaskUserEstimation() {
         //GIVEN
         final User user = User.builder()
             .fio("user1")
@@ -213,23 +188,52 @@ class TaskEstimationControllerTest extends IntegrationTestBase {
             .userId(1L)
             .daysPerTask(10L)
             .build();
-        final WebTestClient.ResponseSpec response = webTestClient.put()
-            .uri(uriBuilder -> uriBuilder
-                .path("api/v1/task-estimations")
-                .build())
-            .bodyValue(request)
-            .exchange();
 
         //THEN
-        response
-            .expectStatus()
-            .isOk()
-            .expectBody(TaskEstimationRs.class)
+        assertThat(putTaskEstimation(request))
             .isEqualTo(TaskEstimationRs.builder()
                 .taskId(1L)
                 .userId(1L)
                 .daysPerTask(10L)
                 .build());
+    }
+
+    private List<TaskEstimationRs> getTaskEstimationRsList() {
+        return webTestClient.get()
+            .uri("api/v1/task-estimations/all")
+            .exchange().expectStatus()
+            .isOk()
+            .expectBodyList(TaskEstimationRs.class)
+            .returnResult()
+            .getResponseBody();
+    }
+
+    private TaskEstimationRs getTaskUserEstimationById() {
+        return webTestClient.get()
+            .uri(uriBuilder -> uriBuilder.path("api/v1/task-estimations")
+                .queryParam("taskId", "1")
+                .queryParam("userId", "1")
+                .build())
+            .exchange()
+            .expectStatus()
+            .isOk()
+            .expectBody(TaskEstimationRs.class)
+            .returnResult()
+            .getResponseBody();
+    }
+
+    private TaskEstimationRs putTaskEstimation(UpdateTaskEstimationRq request) {
+        return webTestClient.put()
+            .uri(uriBuilder -> uriBuilder
+                .path("api/v1/task-estimations")
+                .build())
+            .bodyValue(request)
+            .exchange()
+            .expectStatus()
+            .isOk()
+            .expectBody(TaskEstimationRs.class)
+            .returnResult()
+            .getResponseBody();
     }
 
     private TaskEstimationRs postTaskEstimation(final AddTaskEstimationRq request) {
@@ -245,5 +249,19 @@ class TaskEstimationControllerTest extends IntegrationTestBase {
             .expectBody(TaskEstimationRs.class)
             .returnResult()
             .getResponseBody();
+    }
+
+    private void deleteTaskEstimation() {
+        //http://localhost:8085/api/v1/task-estimations?taskId=1&userId=1'
+        webTestClient
+            .delete()
+            .uri(uriBuilder -> uriBuilder
+                .path("api/v1/task-estimations")
+                .queryParam("taskId", 1L)
+                .queryParam("userId", 1L)
+                .build())
+            .exchange()
+            .expectStatus()
+            .isOk();
     }
 }
