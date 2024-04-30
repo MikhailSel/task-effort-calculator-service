@@ -1,10 +1,9 @@
 package ru.seliverstov.userservice;
 
 import org.junit.jupiter.api.Test;
-import org.springframework.boot.test.context.SpringBootTest;
+import ru.seliverstov.userservice.support.IntegrationTestBase;
 
-@SpringBootTest
-class ApplicationTests {
+class ApplicationTests extends IntegrationTestBase {
 
     @Test
     void contextLoads() {

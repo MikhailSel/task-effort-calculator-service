@@ -5,8 +5,6 @@ import org.springframework.test.web.reactive.server.WebTestClient;
 import ru.seliverstov.userservice.dto.AddTaskEstimationRq;
 import ru.seliverstov.userservice.dto.TaskEstimationRs;
 import ru.seliverstov.userservice.dto.UpdateTaskEstimationRq;
-import ru.seliverstov.userservice.exception.ErrorCode;
-import ru.seliverstov.userservice.exception.ServiceException;
 import ru.seliverstov.userservice.model.Task;
 import ru.seliverstov.userservice.model.TaskUserEstimation;
 import ru.seliverstov.userservice.model.TaskUserEstimationId;
@@ -117,16 +115,10 @@ class TaskEstimationControllerTest extends IntegrationTestBase {
             .userId(user.getId())
             .daysPerTask(8L)
             .build();
+
         //WHEN
-        final WebTestClient.ResponseSpec response = webTestClient.post()
-            .uri("api/v1/task-estimations")
-            .bodyValue(request)
-            .exchange();
-        //THEN
-        response
-            .expectStatus()
-            .isOk()
-            .expectBody(TaskEstimationRs.class)
+        assertThat(postTaskEstimation(request))
+            .usingRecursiveComparison()
             .isEqualTo(TaskEstimationRs.builder()
                 .taskId(1L)
                 .userId(1L)
@@ -139,8 +131,8 @@ class TaskEstimationControllerTest extends IntegrationTestBase {
             .build();
 
         transactionTemplate.execute(ts ->
-            assertThat(taskEstimationRepository.findById(taskUserEstimationId)
-                .orElseThrow(() -> new ServiceException(ErrorCode.ERR_CODE_003, 1L, 1L)))
+            assertThat(taskEstimationRepository.findById(taskUserEstimationId))
+                .get()
                 .usingRecursiveComparison()
                 .ignoringFields("id", "user", "task")
                 .isEqualTo(TaskUserEstimation.builder()
@@ -238,5 +230,20 @@ class TaskEstimationControllerTest extends IntegrationTestBase {
                 .userId(1L)
                 .daysPerTask(10L)
                 .build());
+    }
+
+    private TaskEstimationRs postTaskEstimation(final AddTaskEstimationRq request) {
+        return webTestClient
+            .post()
+            .uri(uriBuilder -> uriBuilder
+                .path("api/v1/task-estimations")
+                .build())
+            .bodyValue(request)
+            .exchange()
+            .expectStatus()
+            .isOk()
+            .expectBody(TaskEstimationRs.class)
+            .returnResult()
+            .getResponseBody();
     }
 }
