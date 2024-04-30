@@ -1,4 +1,4 @@
-package ru.seliverstov.userservice.model;
+package ru.seliverstov.userservice.model.entity;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Embeddable;

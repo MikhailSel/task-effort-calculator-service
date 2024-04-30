@@ -1,4 +1,4 @@
-package ru.seliverstov.userservice.dto;
+package ru.seliverstov.userservice.model.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;

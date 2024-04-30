@@ -9,9 +9,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-import ru.seliverstov.userservice.dto.AddTaskEstimationRq;
-import ru.seliverstov.userservice.dto.TaskEstimationRs;
-import ru.seliverstov.userservice.dto.UpdateTaskEstimationRq;
+import ru.seliverstov.userservice.model.dto.AddTaskEstimationRq;
+import ru.seliverstov.userservice.model.dto.TaskEstimationRs;
+import ru.seliverstov.userservice.model.dto.UpdateTaskEstimationRq;
 import ru.seliverstov.userservice.services.TaskEstimationService;
 
 import java.util.List;

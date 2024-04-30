@@ -1,4 +1,4 @@
-package ru.seliverstov.userservice.model;
+package ru.seliverstov.userservice.model.entity;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -12,21 +12,29 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.time.LocalDate;
+
 @Getter
 @Setter
-@NoArgsConstructor
 @AllArgsConstructor
+@NoArgsConstructor
 @Builder
 
-
 @Entity
-@Table(name = "roles")
-public class Role {
+@Table(name = "vocation_period")
+public class VocationPeriod {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column (name = "name", nullable = false, length = 100)
-    private String name;
+    @Column(name = "user_id", nullable = false)
+    private Long userId;
+
+    @Column(name = "date_from", nullable = false)
+    private LocalDate dateFrom;
+
+    @Column(name = "date_to", nullable = false)
+    private LocalDate dateTo;
+
 }

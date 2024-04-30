@@ -1,4 +1,4 @@
-package ru.seliverstov.userservice.dto;
+package ru.seliverstov.userservice.model.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -8,11 +8,10 @@ import lombok.Setter;
 
 @Getter
 @Setter
+@Builder
 @NoArgsConstructor
 @AllArgsConstructor
-@Builder
-public class UpdateTaskEstimationRq {
-    private Long taskId;
-    private Long userId;
-    private Long daysPerTask;
+public class UserRegistrationRq {
+    private String fullName;
+    private String role;
 }

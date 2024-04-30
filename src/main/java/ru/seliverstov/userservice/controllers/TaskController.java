@@ -9,9 +9,9 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import ru.seliverstov.userservice.dto.TaskRegistrationRq;
-import ru.seliverstov.userservice.dto.TaskRq;
-import ru.seliverstov.userservice.dto.TaskRs;
+import ru.seliverstov.userservice.model.dto.TaskRegistrationRq;
+import ru.seliverstov.userservice.model.dto.TaskRq;
+import ru.seliverstov.userservice.model.dto.TaskRs;
 import ru.seliverstov.userservice.services.TaskService;
 
 import java.util.List;

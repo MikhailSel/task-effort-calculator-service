@@ -1,4 +1,4 @@
-package ru.seliverstov.userservice.dto;
+package ru.seliverstov.userservice.model.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -8,17 +8,15 @@ import lombok.Setter;
 
 @Getter
 @Setter
+@Builder
 @NoArgsConstructor
 @AllArgsConstructor
-@Builder
-
-public class AddVocationPeriodRs {
-
-    private Long id;
+public class AddVocationPeriodRq {
 
     private Long userId;
     //ожидаем дату в формате dd.mm.yyyy
     private String dateFrom;
     //ожидаем дату в формате dd.mm.yyyy
     private String dateTo;
+
 }

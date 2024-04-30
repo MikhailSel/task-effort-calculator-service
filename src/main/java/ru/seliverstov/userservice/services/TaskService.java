@@ -3,13 +3,13 @@ package ru.seliverstov.userservice.services;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import ru.seliverstov.userservice.dto.TaskRegistrationRq;
-import ru.seliverstov.userservice.dto.TaskRq;
-import ru.seliverstov.userservice.dto.TaskRs;
+import ru.seliverstov.userservice.model.dto.TaskRegistrationRq;
+import ru.seliverstov.userservice.model.dto.TaskRq;
+import ru.seliverstov.userservice.model.dto.TaskRs;
 import ru.seliverstov.userservice.exception.ErrorCode;
 import ru.seliverstov.userservice.exception.ServiceException;
 import ru.seliverstov.userservice.mapper.TaskMapper;
-import ru.seliverstov.userservice.model.Task;
+import ru.seliverstov.userservice.model.entity.Task;
 import ru.seliverstov.userservice.repository.TaskRepository;
 
 import java.util.List;

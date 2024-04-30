@@ -2,9 +2,9 @@ package ru.seliverstov.userservice.services;
 
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
-import ru.seliverstov.userservice.dto.AddVocationPeriodRq;
-import ru.seliverstov.userservice.dto.AddVocationPeriodRs;
-import ru.seliverstov.userservice.model.VocationPeriod;
+import ru.seliverstov.userservice.model.dto.AddVocationPeriodRq;
+import ru.seliverstov.userservice.model.dto.AddVocationPeriodRs;
+import ru.seliverstov.userservice.model.entity.VocationPeriod;
 import ru.seliverstov.userservice.repository.VocationPeriodRepository;
 
 import java.time.LocalDate;

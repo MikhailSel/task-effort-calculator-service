@@ -1,8 +1,8 @@
 package ru.seliverstov.userservice.mapper;
 
 import org.springframework.stereotype.Component;
-import ru.seliverstov.userservice.dto.TaskEstimationRs;
-import ru.seliverstov.userservice.model.TaskUserEstimation;
+import ru.seliverstov.userservice.model.dto.TaskEstimationRs;
+import ru.seliverstov.userservice.model.entity.TaskUserEstimation;
 
 @Component
 public class TaskEstimationMapper {

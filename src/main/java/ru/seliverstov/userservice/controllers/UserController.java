@@ -8,9 +8,9 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-import ru.seliverstov.userservice.dto.UserRegistrationRq;
-import ru.seliverstov.userservice.dto.UserRs;
-import ru.seliverstov.userservice.dto.UserUpdateRq;
+import ru.seliverstov.userservice.model.dto.UserRegistrationRq;
+import ru.seliverstov.userservice.model.dto.UserRs;
+import ru.seliverstov.userservice.model.dto.UserUpdateRq;
 import ru.seliverstov.userservice.services.UserService;
 
 @RestController

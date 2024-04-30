@@ -1,8 +1,8 @@
 package ru.seliverstov.userservice.mapper;
 
 import org.springframework.stereotype.Component;
-import ru.seliverstov.userservice.dto.UserRs;
-import ru.seliverstov.userservice.model.User;
+import ru.seliverstov.userservice.model.dto.UserRs;
+import ru.seliverstov.userservice.model.entity.User;
 
 @Component
 public class UserMapper {
