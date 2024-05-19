@@ -26,12 +26,11 @@ public class User extends BaseEntity {
     @Column(name = "fio", unique = true, nullable = false, length = 100)
     private String fio;
 
+    @Column(name = "email", unique = true, nullable = false, length = 100)
+    private String email;
+
     @OneToOne
-    @JoinColumn(name = "id_role", referencedColumnName = "id")
+    @JoinColumn(name = "role_id", referencedColumnName = "id")
     private Role role;
 
-    //    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
-    //    @Builder.Default
-    //    @ToString.Exclude
-    //    private List<TaskUserEstimation> taskUserEstimations = new ArrayList<>();
 }

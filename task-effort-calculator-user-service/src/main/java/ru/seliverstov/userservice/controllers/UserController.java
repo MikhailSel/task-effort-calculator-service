@@ -25,9 +25,9 @@ public class UserController {
     }
 
     @GetMapping("api/v1/users")
-    public UserRs getUser(@RequestParam final Long id) {
-        final UserRs userRs = userService.getUser(id);
-        return userRs;
+    public UserRs getUser(@RequestParam(required = false) final Long id,
+                          @RequestParam(required = false) final String email) {
+        return userService.getUser(id, email);
     }
 
     @DeleteMapping("api/v1/users")

@@ -31,6 +31,12 @@ public class Task extends BaseEntity {
     @Column(name = "name", unique = true, nullable = false, length = 200)
     private String name;
 
+    @Column(name = "reporter_id", nullable = false)
+    private Long reporterId;
+
+    @Column(name = "assignee_id")
+    private Long assigneeId;
+
     @OneToMany(mappedBy = "task", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
     @Builder.Default
     @ToString.Exclude

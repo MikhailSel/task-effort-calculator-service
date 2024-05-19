@@ -22,8 +22,9 @@ CREATE TABLE IF NOT EXISTS users
 (
     id      BIGSERIAL,
     fio     VARCHAR(100) NOT NULL UNIQUE,
-    id_role BIGINT       NOT NULL,
-    CONSTRAINT fk_constraint_role FOREIGN KEY (id_role) REFERENCES roles (id),
+    email   VARCHAR(100) NOT NULL UNIQUE,
+    role_id BIGINT       NOT NULL,
+    CONSTRAINT fk_constraint_role FOREIGN KEY (role_id) REFERENCES roles (id),
     CONSTRAINT users_pkey_id PRIMARY KEY (id)
 );
 

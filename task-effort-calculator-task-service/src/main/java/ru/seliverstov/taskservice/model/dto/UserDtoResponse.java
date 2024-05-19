@@ -1,4 +1,4 @@
-package ru.seliverstov.userservice.model.dto;
+package ru.seliverstov.taskservice.model.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -9,7 +9,7 @@ import lombok.NoArgsConstructor;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class UserRs {
+public class UserDtoResponse {
     private Long id;
     private String fio;
     private String role;

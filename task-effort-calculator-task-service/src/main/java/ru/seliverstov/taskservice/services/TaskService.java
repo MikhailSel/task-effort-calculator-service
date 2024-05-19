@@ -3,10 +3,11 @@ package ru.seliverstov.taskservice.services;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import ru.seliverstov.taskservice.client.UserClient;
 import ru.seliverstov.taskservice.exception.ErrorCode;
 import ru.seliverstov.taskservice.exception.ServiceException;
 import ru.seliverstov.taskservice.mapper.TaskMapper;
-import ru.seliverstov.taskservice.model.dto.TaskRegistrationRq;
+import ru.seliverstov.taskservice.model.dto.CreateTaskRq;
 import ru.seliverstov.taskservice.model.dto.TaskRq;
 import ru.seliverstov.taskservice.model.dto.TaskRs;
 import ru.seliverstov.taskservice.model.entity.Task;
@@ -19,6 +20,7 @@ import java.util.List;
 public class TaskService {
     private final TaskRepository taskRepository;
     private final TaskMapper taskMapper;
+    private final UserClient userClient;
 
     public List<TaskRs> findAll() {
         return taskRepository.findAll()
@@ -33,9 +35,13 @@ public class TaskService {
             .orElseThrow(() -> new ServiceException(ErrorCode.ERR_CODE_001, id));
     }
 
-    public TaskRs postTask(final TaskRegistrationRq taskRegistrationRq) {
+    public TaskRs postTask(final CreateTaskRq createTaskRq) {
+        userClient.getUser(createTaskRq.getAssigneeEmail());
+
         final Task task = Task.builder()
-            .name(taskRegistrationRq.getTaskName())
+            .reporterId(createTaskRq.getReporterId())
+//            .assigneeId()
+            .name(createTaskRq.getTaskName())
             .build();
         taskRepository.save(task);
         return taskMapper.toTaskRs(task);

@@ -7,7 +7,7 @@ import ru.seliverstov.userservice.initializer.PostgreSqlInitializer;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @ContextConfiguration(initializers = PostgreSqlInitializer.class)
-class ApplicationTests {
+class UserApplicationTests {
 
     @Test
     void contextLoads() {

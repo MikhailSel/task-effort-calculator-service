@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import ru.seliverstov.taskservice.model.dto.TaskRegistrationRq;
+import ru.seliverstov.taskservice.model.dto.CreateTaskRq;
 import ru.seliverstov.taskservice.model.dto.TaskRq;
 import ru.seliverstov.taskservice.model.dto.TaskRs;
 import ru.seliverstov.taskservice.services.TaskService;
@@ -33,7 +33,7 @@ public class TaskController {
     }
 
     @PostMapping
-    public TaskRs postTask(@RequestBody final TaskRegistrationRq request) {
+    public TaskRs postTask(@RequestBody final CreateTaskRq request) {
         return taskService.postTask(request);
     }
 

@@ -11,7 +11,9 @@ import lombok.Setter;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class TaskRegistrationRq {
+public class CreateTaskRq {
     private String taskName;
+    private Long reporterId;
+    private String assigneeEmail;
 }
 

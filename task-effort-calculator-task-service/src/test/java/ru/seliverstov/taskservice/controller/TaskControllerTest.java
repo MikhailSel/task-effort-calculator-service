@@ -4,7 +4,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.test.web.reactive.server.WebTestClient;
 import ru.seliverstov.taskservice.exception.ErrorCode;
 import ru.seliverstov.taskservice.exception.ServiceException;
-import ru.seliverstov.taskservice.model.dto.TaskRegistrationRq;
+import ru.seliverstov.taskservice.model.dto.CreateTaskRq;
 import ru.seliverstov.taskservice.model.dto.TaskRq;
 import ru.seliverstov.taskservice.model.dto.TaskRs;
 import ru.seliverstov.taskservice.model.entity.Task;
@@ -80,7 +80,7 @@ public class TaskControllerTest extends IntegrationTestBase {
     @Test
     void testPostTask() {
         //GIVEN
-        final TaskRegistrationRq request = TaskRegistrationRq.builder()
+        final CreateTaskRq request = CreateTaskRq.builder()
             .taskName("task1")
             .build();
         //WHEN

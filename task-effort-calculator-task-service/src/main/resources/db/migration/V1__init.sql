@@ -1,7 +1,9 @@
 CREATE TABLE IF NOT EXISTS tasks
 (
-    id   BIGSERIAL,
-    name VARCHAR(200) NOT NULL UNIQUE,
+    id          BIGSERIAL,
+    reporter_id BIGINT,
+    assignee_id BIGINT,
+    name        VARCHAR(200) NOT NULL UNIQUE,
     CONSTRAINT tasks_pkey_id PRIMARY KEY (id)
 );
 
