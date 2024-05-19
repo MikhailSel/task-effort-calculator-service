@@ -20,8 +20,8 @@ public class UserController {
 
     @PostMapping("api/v1/users")
     public final UserRs postUser(@RequestBody final UserRegistrationRq userRegistrationRq) {
-        final UserRs userRs = userService.postUser(userRegistrationRq);
-        return userRs;
+        //final UserRs userRs = userService.postUser(userRegistrationRq);
+        return userService.postUser(userRegistrationRq);
     }
 
     @GetMapping("api/v1/users")

@@ -1,21 +1,19 @@
-package ru.seliverstov.userservice.services;
+package ru.seliverstov.taskservice.services;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import ru.seliverstov.userservice.exception.ErrorCode;
-import ru.seliverstov.userservice.exception.ServiceException;
-import ru.seliverstov.userservice.mapper.TaskEstimationMapper;
-import ru.seliverstov.userservice.model.dto.AddTaskEstimationRq;
-import ru.seliverstov.userservice.model.dto.TaskEstimationRs;
-import ru.seliverstov.userservice.model.dto.UpdateTaskEstimationRq;
-import ru.seliverstov.userservice.model.entity.Task;
-import ru.seliverstov.userservice.model.entity.TaskUserEstimation;
-import ru.seliverstov.userservice.model.entity.TaskUserEstimationId;
-import ru.seliverstov.userservice.model.entity.User;
-import ru.seliverstov.userservice.repository.TaskEstimationRepository;
-import ru.seliverstov.userservice.repository.TaskRepository;
-import ru.seliverstov.userservice.repository.UserRepository;
+import ru.seliverstov.taskservice.exception.ErrorCode;
+import ru.seliverstov.taskservice.exception.ServiceException;
+import ru.seliverstov.taskservice.mapper.TaskEstimationMapper;
+import ru.seliverstov.taskservice.model.dto.AddTaskEstimationRq;
+import ru.seliverstov.taskservice.model.dto.TaskEstimationRs;
+import ru.seliverstov.taskservice.model.dto.UpdateTaskEstimationRq;
+import ru.seliverstov.taskservice.model.entity.Task;
+import ru.seliverstov.taskservice.model.entity.TaskUserEstimation;
+import ru.seliverstov.taskservice.model.entity.TaskUserEstimationId;
+import ru.seliverstov.taskservice.repository.TaskEstimationRepository;
+import ru.seliverstov.taskservice.repository.TaskRepository;
 
 import java.util.List;
 
@@ -25,7 +23,6 @@ public class TaskEstimationService {
     private final TaskEstimationRepository taskEstimationRepository;
     private final TaskEstimationMapper taskEstimationMapper;
     private final TaskRepository taskRepository;
-    private final UserRepository userRepository;
 
     public List<TaskEstimationRs> getAll() {
         return taskEstimationRepository.findAll()
@@ -47,8 +44,6 @@ public class TaskEstimationService {
     public TaskEstimationRs postTaskEstimation(final AddTaskEstimationRq request) {
         final Task task = taskRepository.findById(request.getTaskId())
             .orElseThrow(() -> new ServiceException(ErrorCode.ERR_CODE_001, request.getTaskId()));
-        final User user = userRepository.findById(request.getUserId())
-            .orElseThrow(() -> new ServiceException(ErrorCode.ERR_CODE_002, request.getUserId()));
 
         final TaskUserEstimation taskUserEstimation = TaskUserEstimation.builder()
             .id(TaskUserEstimationId.builder()
@@ -56,7 +51,6 @@ public class TaskEstimationService {
                 .userId(request.getUserId())
                 .build())
             .task(task)
-            .user(user)
             .daysPerPerson(request.getDaysPerTask())
             .build();
 

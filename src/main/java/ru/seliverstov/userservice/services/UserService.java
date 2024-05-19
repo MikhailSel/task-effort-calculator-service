@@ -3,12 +3,12 @@ package ru.seliverstov.userservice.services;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import ru.seliverstov.userservice.model.dto.UserRegistrationRq;
-import ru.seliverstov.userservice.model.dto.UserRs;
-import ru.seliverstov.userservice.model.dto.UserUpdateRq;
 import ru.seliverstov.userservice.exception.ErrorCode;
 import ru.seliverstov.userservice.exception.ServiceException;
 import ru.seliverstov.userservice.mapper.UserMapper;
+import ru.seliverstov.userservice.model.dto.UserRegistrationRq;
+import ru.seliverstov.userservice.model.dto.UserRs;
+import ru.seliverstov.userservice.model.dto.UserUpdateRq;
 import ru.seliverstov.userservice.model.entity.User;
 import ru.seliverstov.userservice.repository.UserRepository;
 

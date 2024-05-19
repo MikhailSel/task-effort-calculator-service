@@ -8,17 +8,15 @@ import lombok.Setter;
 
 @Getter
 @Setter
+@Builder
 @NoArgsConstructor
 @AllArgsConstructor
-@Builder
-
-public class AddVocationPeriodRs {
-
-    private Long id;
+public class AddVacationPeriodRq {
 
     private Long userId;
     //ожидаем дату в формате dd.mm.yyyy
     private String dateFrom;
     //ожидаем дату в формате dd.mm.yyyy
     private String dateTo;
+
 }

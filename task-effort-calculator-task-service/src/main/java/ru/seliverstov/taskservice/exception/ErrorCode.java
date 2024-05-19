@@ -1,4 +1,4 @@
-package ru.seliverstov.userservice.exception;
+package ru.seliverstov.taskservice.exception;
 
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
@@ -8,8 +8,7 @@ import lombok.RequiredArgsConstructor;
 public enum ErrorCode {
     ERR_CODE_001("ERR.CODE.001", "Task with id %s not found", 404),
     ERR_CODE_002("ERR.CODE.002", "User with id %s not found", 404),
-    ERR_CODE_003("ERR.CODE.003", "TaskEstimation with idTask %s and idUser %s not found", 404),
-    ERR_CODE_004("ERR.CODE.004", "VacationPeriod with id %s not found", 404);
+    ERR_CODE_003("ERR.CODE.003", "TaskEstimation with idTask %s and idUser %s not found", 404);
 
     private final String code;
     private final String description;

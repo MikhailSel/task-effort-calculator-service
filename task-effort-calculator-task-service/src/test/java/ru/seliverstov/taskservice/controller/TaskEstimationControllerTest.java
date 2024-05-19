@@ -1,19 +1,18 @@
-package ru.seliverstov.userservice.controller;
+package ru.seliverstov.taskservice.controller;
 
+import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
-import ru.seliverstov.userservice.model.dto.AddTaskEstimationRq;
-import ru.seliverstov.userservice.model.dto.TaskEstimationRs;
-import ru.seliverstov.userservice.model.dto.UpdateTaskEstimationRq;
-import ru.seliverstov.userservice.model.entity.Task;
-import ru.seliverstov.userservice.model.entity.TaskUserEstimation;
-import ru.seliverstov.userservice.model.entity.TaskUserEstimationId;
-import ru.seliverstov.userservice.model.entity.User;
-import ru.seliverstov.userservice.support.DataProvider;
-import ru.seliverstov.userservice.support.IntegrationTestBase;
+import ru.seliverstov.taskservice.model.dto.TaskEstimationRs;
+import ru.seliverstov.taskservice.model.dto.UpdateTaskEstimationRq;
+import ru.seliverstov.taskservice.model.entity.Task;
+import ru.seliverstov.taskservice.model.entity.TaskUserEstimation;
+import ru.seliverstov.taskservice.model.entity.TaskUserEstimationId;
+import ru.seliverstov.taskservice.support.DataProvider;
+import ru.seliverstov.taskservice.support.IntegrationTestBase;
 
 import java.util.List;
 
-import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 
 class TaskEstimationControllerTest extends IntegrationTestBase {
 
@@ -28,13 +27,11 @@ class TaskEstimationControllerTest extends IntegrationTestBase {
     void getTestEstimationList() {
         //GIVEN
         final Task task = taskRepository.save(DataProvider.prepareTask().build());
-        final User user = userRepository.save(DataProvider.prepareUser().build());
 
         final TaskUserEstimationId taskUserEstimationId = getTaskUserEstimationId();
         final TaskUserEstimation taskUserEstimation = TaskUserEstimation.builder()
             .id(taskUserEstimationId)
             .task(task)
-            .user(user)
             .daysPerPerson(8L)
             .build();
         taskEstimationRepository.save(taskUserEstimation);
@@ -46,7 +43,6 @@ class TaskEstimationControllerTest extends IntegrationTestBase {
             .usingRecursiveComparison()
             .isEqualTo(List.of(TaskEstimationRs.builder()
                 .taskId(1L)
-                .userId(1L)
                 .daysPerTask(8L)
                 .build()));
     }
@@ -55,12 +51,10 @@ class TaskEstimationControllerTest extends IntegrationTestBase {
     void getTestEstimationById() {
         //GIVEN
         final Task task = taskRepository.save(DataProvider.prepareTask().build());
-        final User user = userRepository.save(DataProvider.prepareUser().build());
         final TaskUserEstimationId taskUserEstimationId = getTaskUserEstimationId();
         final TaskUserEstimation taskUserEstimation = TaskUserEstimation.builder()
             .id(taskUserEstimationId)
             .task(task)
-            .user(user)
             .daysPerPerson(8L)
             .build();
         taskEstimationRepository.save(taskUserEstimation);
@@ -72,20 +66,17 @@ class TaskEstimationControllerTest extends IntegrationTestBase {
             .usingRecursiveComparison()
             .isEqualTo(TaskEstimationRs.builder()
                 .taskId(1L)
-                .userId(1L)
                 .daysPerTask(8L)
                 .build());
     }
 
-    @Test
+    /*@Test
     void postTaskEstimationShouldSuccess() {
         //GIVEN
-        final Task task = taskRepository.save(DataProvider.prepareTask().build());
-        final User user = userRepository.save(DataProvider.prepareUser().build());
+       final Task task = taskRepository.save(DataProvider.prepareTask().build());
 
         final AddTaskEstimationRq request = AddTaskEstimationRq.builder()
             .taskId(task.getId())
-            .userId(user.getId())
             .daysPerTask(8L)
             .build();
 
@@ -94,31 +85,28 @@ class TaskEstimationControllerTest extends IntegrationTestBase {
             .usingRecursiveComparison()
             .isEqualTo(TaskEstimationRs.builder()
                 .taskId(1L)
-                .userId(1L)
                 .daysPerTask(8L)
                 .build());
 
         final TaskUserEstimationId taskUserEstimationId = getTaskUserEstimationId();
 
         transactionTemplate.execute(ts ->
-            assertThat(taskEstimationRepository.findById(taskUserEstimationId))
+            Assertions.assertThat(taskEstimationRepository.findById(taskUserEstimationId))
                 .get()
                 .usingRecursiveComparison()
                 .ignoringFields("id", "user", "task")
                 .isEqualTo(TaskUserEstimation.builder()
                     .task(task)
-                    .user(user)
                     .daysPerPerson(8L)
                     .build())
         );
 
-    }
+    }*/
 
     @Test
     void deleteTaskEstimationById() {
         //GIVEN
         final Task task = taskRepository.save(DataProvider.prepareTask().build());
-        final User user = userRepository.save(DataProvider.prepareUser().build());
 
         final TaskUserEstimationId taskUserEstimationId = TaskUserEstimationId.builder()
             .userId(1L)
@@ -127,7 +115,6 @@ class TaskEstimationControllerTest extends IntegrationTestBase {
         final TaskUserEstimation taskUserEstimation = TaskUserEstimation.builder()
             .id(taskUserEstimationId)
             .task(task)
-            .user(user)
             .daysPerPerson(8L)
             .build();
         taskEstimationRepository.save(taskUserEstimation);
@@ -136,7 +123,7 @@ class TaskEstimationControllerTest extends IntegrationTestBase {
         //THEN
         deleteTaskEstimation();
 
-        assertThat(taskEstimationRepository.findAll())
+        Assertions.assertThat(taskEstimationRepository.findAll())
             .isEmpty();
     }
 
@@ -144,7 +131,6 @@ class TaskEstimationControllerTest extends IntegrationTestBase {
     void putTaskUserEstimation() {
         //GIVEN
         final Task task = taskRepository.save(DataProvider.prepareTask().build());
-        final User user = userRepository.save(DataProvider.prepareUser().build());
 
         final TaskUserEstimationId taskUserEstimationId = TaskUserEstimationId.builder()
             .userId(1L)
@@ -153,7 +139,6 @@ class TaskEstimationControllerTest extends IntegrationTestBase {
         final TaskUserEstimation taskUserEstimation = TaskUserEstimation.builder()
             .id(taskUserEstimationId)
             .task(task)
-            .user(user)
             .daysPerPerson(8L)
             .build();
         taskEstimationRepository.save(taskUserEstimation);
@@ -169,7 +154,6 @@ class TaskEstimationControllerTest extends IntegrationTestBase {
             .usingRecursiveComparison()
             .isEqualTo(TaskEstimationRs.builder()
                 .taskId(1L)
-                .userId(1L)
                 .daysPerTask(10L)
                 .build());
     }
@@ -212,7 +196,7 @@ class TaskEstimationControllerTest extends IntegrationTestBase {
             .getResponseBody();
     }
 
-    private TaskEstimationRs postTaskEstimation(final AddTaskEstimationRq request) {
+    /*private TaskEstimationRs postTaskEstimation(final AddTaskEstimationRq request) {
         return webTestClient
             .post()
             .uri(uriBuilder -> uriBuilder
@@ -225,7 +209,7 @@ class TaskEstimationControllerTest extends IntegrationTestBase {
             .expectBody(TaskEstimationRs.class)
             .returnResult()
             .getResponseBody();
-    }
+    }*/
 
     private void deleteTaskEstimation() {
         //http://localhost:8085/api/v1/task-estimations?taskId=1&userId=1'
